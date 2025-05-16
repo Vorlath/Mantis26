@@ -1,0 +1,3 @@
+[submodule "libraries/Mantis"]
+	path = libraries/Mantis
+	url = https://github.com/Vorlath/Mantis.git
