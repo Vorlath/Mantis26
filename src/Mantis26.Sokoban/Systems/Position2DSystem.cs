@@ -35,8 +35,18 @@ namespace Mantis26.Sokoban.Systems
                         continue;
                     }
 
-                    position.Display = position.Value.ToVector2();
-                    position.Moving = false;
+                    position.Delta += (float)gameTime.ElapsedGameTime.TotalSeconds * (1000f / 75f);
+                    if (position.Delta >= 1)
+                    {
+                        position.Delta = 0;
+                        position.Display = position.Value.ToVector2();
+                        position.Origin = position.Value;
+                        position.Moving = false;
+                    }
+                    else
+                    {
+                        position.Display = Vector2.Lerp(position.Origin.ToVector2(), position.Value.ToVector2(), position.Delta);
+                    }
                 }
             }
         }

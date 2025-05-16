@@ -10,6 +10,7 @@ using Mantis.Engine.Common.Systems;
 using Mantis26.Sokoban.Components;
 using Mantis26.Sokoban.Enums;
 using Mantis26.Sokoban.Extensions;
+using Mantis26.Sokoban.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Svelto.ECS;
@@ -17,10 +18,12 @@ using Svelto.ECS;
 namespace Mantis26.Sokoban.Systems
 {
     public class ControllableSystem(
-        EntitiesDB entitiesDb
+        EntitiesDB entitiesDb,
+        PushService pushService
     ) : ISceneSystem, IUpdateSystem
     {
         private readonly EntitiesDB _entitiesDB = entitiesDb;
+        private readonly PushService _pushService = pushService;
         private InputEnum _lastInput = InputEnum.None;
 
         [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.PreUpdate)]
@@ -31,6 +34,11 @@ namespace Mantis26.Sokoban.Systems
             InputEnum deltas = ~_lastInput & input;
             _lastInput = input;
 
+            if (this.ShouldMove(deltas, out Point direction) == false)
+            {
+                return;
+            }
+
             foreach (var ((controllables, positions, count), _) in this._entitiesDB.QueryEntities<Controllable, Position2D>(groups))
             {
                 for (int i = 0; i < count; i++)
@@ -38,40 +46,44 @@ namespace Mantis26.Sokoban.Systems
                     ref Controllable controllable = ref controllables[i];
                     ref Position2D position = ref positions[i];
 
-                    if (position.Moving == true)
+                    Point target = position.Value + direction;
+                    if(this._pushService.TryPush(target, direction) == true)
                     {
-                        continue;
-                    }
-
-                    if(deltas.HasFlag(InputEnum.Up))
-                    {
-                        position.Value = position.Value + new Point(0, -1);
+                        position.Value = target;
                         position.Moving = true;
-                        continue;
-                    }
-
-                    if (deltas.HasFlag(InputEnum.Left))
-                    {
-                        position.Value = position.Value + new Point(-1, 0);
-                        position.Moving = true;
-                        continue;
-                    }
-
-                    if (deltas.HasFlag(InputEnum.Down))
-                    {
-                        position.Value = position.Value + new Point(0, 1);
-                        position.Moving = true;
-                        continue;
-                    }
-
-                    if (deltas.HasFlag(InputEnum.Right))
-                    {
-                        position.Value = position.Value + new Point(1, 0);
-                        position.Moving = true;
-                        continue;
                     }
                 }
             }
+        }
+
+        private bool ShouldMove(InputEnum deltas, out Point direction)
+        {
+            if (deltas.HasFlag(InputEnum.Up))
+            {
+                direction = new Point(0, -1);
+                return true;
+            }
+
+            if (deltas.HasFlag(InputEnum.Left))
+            {
+                direction = new Point(-1, 0);
+                return true;
+            }
+
+            if (deltas.HasFlag(InputEnum.Down))
+            {
+                direction = new Point(0, 1);
+                return true;
+            }
+
+            if (deltas.HasFlag(InputEnum.Right))
+            {
+                direction = new Point(1, 0);
+                return true;
+            }
+
+            direction = default;
+            return false;
         }
     }
 }

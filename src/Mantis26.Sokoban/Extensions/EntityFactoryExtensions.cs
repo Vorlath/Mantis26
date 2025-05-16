@@ -22,5 +22,21 @@ namespace Mantis26.Sokoban.Extensions
 
             return initilaizer;
         }
+
+        public static EntityInitializer BuildRock(this IEntityFactory entityFactory, Point position)
+        {
+            EntityInitializer initilaizer = entityFactory.BuildEntity<RockDescriptor>(_entityId++, ExclusiveGroups.Rocks);
+            initilaizer.Init<Position2D>(new Position2D() { Value = position, Origin = position, Delta = 0f, Moving = false, Display = position.ToVector2() });
+
+            return initilaizer;
+        }
+
+        public static EntityInitializer BuildWall(this IEntityFactory entityFactory, Point position)
+        {
+            EntityInitializer initilaizer = entityFactory.BuildEntity<WallDescriptor>(_entityId++, ExclusiveGroups.Walls);
+            initilaizer.Init<Position2D>(new Position2D() { Value = position, Origin = position, Delta = 0f, Moving = false, Display = position.ToVector2() });
+
+            return initilaizer;
+        }
     }
 }

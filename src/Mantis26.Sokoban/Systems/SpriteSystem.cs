@@ -28,6 +28,8 @@ namespace Mantis26.Sokoban.Systems
         private readonly SpriteBatch _spriteBatch = spriteBatch;
         private readonly Dictionary<SpriteEnum, Texture2D> _sprites = new() {
             { SpriteEnum.Player, contentManager.Load<Texture2D>("Sprites/player") },
+            { SpriteEnum.Rock, contentManager.Load<Texture2D>("Sprites/rock") },
+            { SpriteEnum.Wall, contentManager.Load<Texture2D>("Sprites/wall") },
         };
 
         [SequenceGroup<DrawSequenceGroupEnum>(DrawSequenceGroupEnum.Draw)]

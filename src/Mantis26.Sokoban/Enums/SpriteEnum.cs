@@ -8,6 +8,8 @@ namespace Mantis26.Sokoban.Enums
 {
     public enum SpriteEnum
     {
-        Player
+        Player,
+        Rock,
+        Wall
     }
 }

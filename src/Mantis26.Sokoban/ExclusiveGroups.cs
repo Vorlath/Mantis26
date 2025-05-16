@@ -10,5 +10,7 @@ namespace Mantis26.Sokoban
     public static class ExclusiveGroups
     {
         public static readonly ExclusiveGroup Players = new();
+        public static readonly ExclusiveGroup Rocks = new();
+        public static readonly ExclusiveGroup Walls = new();
     }
 }

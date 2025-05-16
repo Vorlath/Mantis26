@@ -22,6 +22,14 @@ namespace Mantis26.Sokoban.Scenes
             base.Initialize();
 
             this._entityFactory.BuildPlayer(Point.Zero);
+            this._entityFactory.BuildRock(new Point(3, 1));
+
+            this._entityFactory.BuildWall(new Point(-2, -3));
+            this._entityFactory.BuildWall(new Point(-2, -2));
+            this._entityFactory.BuildWall(new Point(-2, -1));
+            this._entityFactory.BuildWall(new Point(-2, 0));
+            this._entityFactory.BuildWall(new Point(-2, 1));
+            this._entityFactory.BuildWall(new Point(-2, 2));
         }
     }
 }

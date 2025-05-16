@@ -8,6 +8,7 @@ using Mantis.Engine;
 using Mantis.Engine.Common.Extensions;
 using Mantis.Engine.Extensions;
 using Mantis26.Sokoban.Scenes;
+using Mantis26.Sokoban.Services;
 using Mantis26.Sokoban.Systems;
 using Mantis26.Sokoban.Utilities;
 using Microsoft.Xna.Framework;
@@ -62,6 +63,7 @@ namespace Mantis26.Sokoban
 
                 builder.RegisterType<GameScene>().InstancePerLifetimeScope();
                 builder.RegisterType<Camera>().InstancePerLifetimeScope();
+                builder.RegisterType<PushService>().InstancePerLifetimeScope();
 
                 builder.RegisterSceneSystem<EngineSystem>()
                     .RegisterSceneSystem<WorldSystem>()
