@@ -47,7 +47,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svelto.ECS", "libraries\Man
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svelto.Common", "libraries\Mantis\libraries\Svelto.ECS\com.sebaslab.svelto.common\Svelto.Common.csproj", "{0B800CDA-3CAE-4D47-9294-A37790608B1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis.Mantis26.OnlyUp", "source\Mantis.Mantis26.OnlyUp\Mantis.Mantis26.OnlyUp.csproj", "{CF1AF95D-EB2F-4EDD-9566-48C34D0619D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mantis26.Sokoban", "src\Mantis26.Sokoban\Mantis26.Sokoban.csproj", "{0AF970E1-E277-C97C-B95A-1E8A6632A85B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,10 +113,10 @@ Global
 		{0B800CDA-3CAE-4D47-9294-A37790608B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B800CDA-3CAE-4D47-9294-A37790608B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B800CDA-3CAE-4D47-9294-A37790608B1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF1AF95D-EB2F-4EDD-9566-48C34D0619D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF1AF95D-EB2F-4EDD-9566-48C34D0619D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF1AF95D-EB2F-4EDD-9566-48C34D0619D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF1AF95D-EB2F-4EDD-9566-48C34D0619D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF970E1-E277-C97C-B95A-1E8A6632A85B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF970E1-E277-C97C-B95A-1E8A6632A85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF970E1-E277-C97C-B95A-1E8A6632A85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF970E1-E277-C97C-B95A-1E8A6632A85B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,5 +143,9 @@ Global
 		{D83F857F-C152-4176-B956-A4E826C3F4DB} = {819B8F27-90BD-4567-811B-5938B2F9E5B1}
 		{4E157F26-CDD5-47F9-9880-B1B399C4973F} = {D83F857F-C152-4176-B956-A4E826C3F4DB}
 		{0B800CDA-3CAE-4D47-9294-A37790608B1F} = {D83F857F-C152-4176-B956-A4E826C3F4DB}
+		{0AF970E1-E277-C97C-B95A-1E8A6632A85B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F30B1F14-9B8C-4B30-9B8C-5E8DF1EC4997}
 	EndGlobalSection
 EndGlobal
