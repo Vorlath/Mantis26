@@ -1,7 +1,6 @@
-﻿using Mantis.Mantis26.OnlyUp.Components;
-using Svelto.ECS;
+﻿using Svelto.ECS;
 
-namespace Mantis.Mantis26.OnlyUp.Descriptors
+namespace TextAdventure.Descriptors
 {
     public class WorldDescriptor : IEntityDescriptor
     {
@@ -9,7 +8,7 @@ namespace Mantis.Mantis26.OnlyUp.Descriptors
 
         private static readonly IComponentBuilder[] _componentsToBuild =
         [
-            new ComponentBuilder<Boundary>(new Boundary())
+            //new ComponentBuilder<Boundary>(new Boundary())
         ];
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Mantis.Mantis26.OnlyUp.Enums
+﻿namespace TextAdventure.Enums
 {
     public enum TextureEnum
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Svelto.ECS;
 
-namespace Mantis.Mantis26.OnlyUp.Engines
+namespace TextAdventure.Engines
 {
     public interface IFrameEngine : IEngine
     {

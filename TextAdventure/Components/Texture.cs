@@ -1,6 +1,6 @@
-﻿using Mantis.Mantis26.OnlyUp.Enums;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Svelto.ECS;
+using TextAdventure.Enums;
 
 namespace TextAdventure.Components
 {

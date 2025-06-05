@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Mantis.Core.Logging.Common;
+﻿using Mantis.Core.Logging.Common;
 using Mantis.Core.MonoGame.Common;
 using Mantis.Engine.Common;
 using Mantis.Engine.Common.Services;
@@ -10,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
 using Svelto.ECS.Schedulers;
+using System.Text.Json;
 
 namespace Mantis.Mantis26.OnlyUp.Scenes
 {
@@ -73,8 +73,8 @@ namespace Mantis.Mantis26.OnlyUp.Scenes
             MNKYSpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("4", 1000)
             ]);
-            MNKYSpriteSheet.CreateAnimationType([
-                new AnimationFrameContext("5", 1000)
+            MNKYSpriteSheet.CreateAnimationType([ // container
+                new AnimationFrameContext("5", 1000) // elements
             ]);
             MNKYSpriteSheet.CreateAnimationType([
                 new AnimationFrameContext("6", 1000)

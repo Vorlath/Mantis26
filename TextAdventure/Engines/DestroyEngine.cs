@@ -1,4 +1,4 @@
-﻿namespace Mantis.Mantis26.OnlyUp.Engines
+﻿namespace TextAdventure.Engines
 {
     public class DestroyEngine
     {

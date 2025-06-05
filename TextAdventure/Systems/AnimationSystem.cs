@@ -2,12 +2,12 @@
 using Mantis.Core.MonoGame.Common.Extensions;
 using Mantis.Engine.Common.Enums;
 using Mantis.Engine.Common.Systems;
-using Mantis.Mantis26.OnlyUp.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Svelto.ECS;
+using TextAdventure.Components;
 
-namespace Mantis.Mantis26.OnlyUp.Systems
+namespace TextAdventure.Systems
 {
     internal class AnimationSystem(SpriteBatch spriteBatch) : IDrawSystem, ISceneSystem, IQueryingEntitiesEngine
     {

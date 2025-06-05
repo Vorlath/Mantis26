@@ -7,13 +7,13 @@ using Mantis.Core.Logging.Serilog.Extensions;
 using Mantis.Engine;
 using Mantis.Engine.Common.Extensions;
 using Mantis.Engine.Extensions;
-using Mantis.Mantis26.OnlyUp.Engines;
-using Mantis.Mantis26.OnlyUp.Scenes;
-using Mantis.Mantis26.OnlyUp.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TextAdventure.Engines;
+using TextAdventure.Scenes;
+using TextAdventure.Systems;
 
-namespace Mantis.Mantis26.OnlyUp
+namespace TextAdventure
 {
     public sealed class Game1 : Microsoft.Xna.Framework.Game
     {
@@ -62,9 +62,9 @@ namespace Mantis.Mantis26.OnlyUp
 
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterSceneSystem<AnimationSystem>();
-                builder.RegisterSceneSystem<TextureEngine>();
+                //builder.RegisterSceneSystem<TextureEngine>();
                 builder.RegisterSceneSystem<MovementEngine>();
-                builder.RegisterSceneSystem<CollisionEngine>();
+                //builder.RegisterSceneSystem<CollisionEngine>();
                 builder.RegisterSceneSystem<ControllableEngine>();
 
             });

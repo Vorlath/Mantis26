@@ -1,6 +1,6 @@
 ﻿using Svelto.ECS;
 
-namespace Mantis.Mantis26.OnlyUp.Components
+namespace TextAdventure.Components
 {
     public struct Boundary(RectangleF boundary) : IEntityComponent
     {

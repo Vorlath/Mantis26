@@ -1,4 +1,4 @@
-﻿using (var game = new Mantis.Mantis26.OnlyUp.Game1())
+﻿using (var game = new TextAdventure.Game1())
 {
     game.Run();
 }

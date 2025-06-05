@@ -1,7 +1,7 @@
-﻿using System.Numerics;
-using Svelto.ECS;
+﻿using Svelto.ECS;
+using System.Numerics;
 
-namespace Mantis.Mantis26.OnlyUp.Components
+namespace TextAdventure.Components
 {
     public struct Size(float width, float height) : IEntityComponent
     {

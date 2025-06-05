@@ -1,7 +1,7 @@
 ﻿using Mantis.Core.MonoGame.Common;
 using Svelto.ECS;
 
-namespace Mantis.Mantis26.OnlyUp.Components
+namespace TextAdventure.Components
 {
     public struct Animated(AnimationType animationType) : IEntityComponent
     {
