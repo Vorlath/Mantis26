@@ -9,7 +9,9 @@ namespace Mantis26.Sokoban.Enums
     public enum SpriteEnum
     {
         Player,
+        PlayerDead,
         Rock,
+        Ice,
         Wall
     }
 }

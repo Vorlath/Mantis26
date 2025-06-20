@@ -9,14 +9,18 @@ using Svelto.ECS;
 
 namespace Mantis26.Sokoban.Descriptors
 {
-    public class PlayerDescriptor : IEntityDescriptor
+    public class FireDescriptor : IEntityDescriptor
     {
         public IComponentBuilder[] componentsToBuild => _compoentsToBuild;
         private static IComponentBuilder[] _compoentsToBuild = [
-            new ComponentBuilder<EntityType>(EntityType<PlayerDescriptor>.Instance),
+            new ComponentBuilder<EntityType>(EntityType<FireDescriptor>.Instance),
             new ComponentBuilder<Position2D>(),
-            new ComponentBuilder<Controllable>(),
-            new ComponentBuilder<Spritable>(new Spritable(SpriteEnum.Player))
+            new ComponentBuilder<Animatable>(new Animatable(AnimationTypes.Fire)),
+            new ComponentBuilder<Collidable>(new Collidable() {
+                IsLocked = true,
+                IsSolid = false
+            }),
+            new ComponentBuilder<Deadly>(new Deadly()),
         ];
     }
 }

@@ -4,42 +4,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Mantis26.Sokoban.Components;
+using Mantis26.Sokoban.Extensions;
 using Microsoft.Xna.Framework;
 using Svelto.ECS;
 
 namespace Mantis26.Sokoban.Services
 {
-    public class PushService(EntitiesDB entitiesDb)
+    public class PushService(EntitiesDB entitiesDb, IEnumerable<IPushScenarioService> pushScenarioServices)
     {
         private readonly EntitiesDB _entitiesDB = entitiesDb;
+        private IPushScenarioService[] _scenarios = [.. pushScenarioServices];
 
-        public bool TryPush(Point target, Point direction)
+        public bool TryPush(EntityType sourceType, EGID sourceEGID, Point sourcePosition, Point targetPosition, Point direction)
         {
-            var groups = this._entitiesDB.FindGroups<Position2D, Collidable>();
+            var groups = this._entitiesDB.FindGroups<EntityType, Position2D, Collidable>();
 
-            foreach (var ((positions, collidables, count), _) in this._entitiesDB.QueryEntities<Position2D, Collidable>(groups))
+            foreach (var ((types, positions, collidables, nativeIds, count), group) in this._entitiesDB.QueryEntities<EntityType, Position2D, Collidable>(groups))
             {
                 for (int i = 0; i < count; i++)
                 {
+                    ref EntityType targetType = ref types[i];
                     ref Position2D position = ref positions[i];
                     ref Collidable collidable = ref collidables[i];
 
-                    if(position.Value != target)
+                    if(position.Value != targetPosition)
                     {
                         continue;
                     }
 
-                    if(collidable.Static == true)
+                    PushScenario scenario = new PushScenario(sourceType, sourceEGID, sourcePosition, targetType, nativeIds.GetEGID(i, group), targetPosition, direction);
+                    foreach(IPushScenarioService pushScenarioService in this._scenarios)
+                    {
+                        if(pushScenarioService.CanHandleScenario(scenario) == true)
+                        {
+                            return pushScenarioService.HandleScenario(scenario);
+                        }
+                    }
+
+                    if(collidable.IsSolid == false)
+                    {
+                        return true;
+                    }
+
+                    if (collidable.IsLocked || this.TryPush(targetType, nativeIds.GetEGID(i, group), targetPosition, targetPosition + direction, direction) == false)
                     {
                         return false;
                     }
 
-                    if(this.TryPush(target + direction, direction) == false)
-                    {
-                        return false;
-                    }
-
-                    position.Value = target + direction;
+                    position.Value = targetPosition + direction;
                     position.Moving = true;
                 }
             }

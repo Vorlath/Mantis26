@@ -13,10 +13,12 @@ namespace Mantis26.Sokoban.Descriptors
     {
         public IComponentBuilder[] componentsToBuild => _compoentsToBuild;
         private static IComponentBuilder[] _compoentsToBuild = [
+            new ComponentBuilder<EntityType>(EntityType<RockDescriptor>.Instance),
             new ComponentBuilder<Position2D>(),
             new ComponentBuilder<Spritable>(new Spritable(SpriteEnum.Rock)),
             new ComponentBuilder<Collidable>(new Collidable() {
-                Static = false
+                IsLocked = false,
+                IsSolid = true
             })
         ];
     }

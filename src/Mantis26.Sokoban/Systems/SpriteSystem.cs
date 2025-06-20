@@ -30,14 +30,16 @@ namespace Mantis26.Sokoban.Systems
             { SpriteEnum.Player, contentManager.Load<Texture2D>("Sprites/player") },
             { SpriteEnum.Rock, contentManager.Load<Texture2D>("Sprites/rock") },
             { SpriteEnum.Wall, contentManager.Load<Texture2D>("Sprites/wall") },
+            { SpriteEnum.Ice, contentManager.Load<Texture2D>("Sprites/ice") },
+            { SpriteEnum.PlayerDead, contentManager.Load<Texture2D>("Sprites/player_dead") },
         };
 
-        [SequenceGroup<DrawSequenceGroupEnum>(DrawSequenceGroupEnum.Draw)]
+        [SequenceGroup<DrawSequenceGroupEnum>(DrawSequenceGroupEnum.PostDraw)]
         public void Draw(GameTime gameTime)
         {
             var groups = this._entitiesDB.FindGroups<Spritable, Position2D>();
 
-            this._spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, this._camera.World * this._camera.View * this._camera.Projection);
+            this._spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, this._camera.WorldViewProjection);
 
             foreach (var ((spritables, positions, count), _) in this._entitiesDB.QueryEntities<Spritable, Position2D>(groups))
             {
@@ -53,7 +55,7 @@ namespace Mantis26.Sokoban.Systems
                         Color.White,
                         0f,
                         Vector2.Zero,
-                        1 / _camera.Zoom,
+                        1 / 32f,
                         SpriteEffects.None,
                         0);
                 }

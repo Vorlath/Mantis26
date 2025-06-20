@@ -24,7 +24,7 @@ namespace Mantis26.Sokoban.Systems
         private Vector2 _position;
 
 
-        [SequenceGroup<DrawSequenceGroupEnum>(DrawSequenceGroupEnum.PreDraw)]
+        [SequenceGroup<DrawSequenceGroupEnum>(DrawSequenceGroupEnum.Draw)]
         public void Draw(GameTime gameTime)
         {
             Vector2 center = _camera.ToScreen(_camera.Position);

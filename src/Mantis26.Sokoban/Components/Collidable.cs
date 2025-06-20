@@ -7,8 +7,9 @@ using Svelto.ECS;
 
 namespace Mantis26.Sokoban.Components
 {
-    public struct Collidable : IEntityComponent
+    public struct Collidable() : IEntityComponent
     {
-        public bool Static { get; set; }
+        public bool IsSolid = true;
+        public bool IsLocked = false;
     }
 }

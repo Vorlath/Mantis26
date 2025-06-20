@@ -7,7 +7,8 @@ using Svelto.ECS;
 
 namespace Mantis26.Sokoban.Components
 {
-    public struct Controllable : IEntityComponent
+    public struct Controllable() : IEntityComponent
     {
+        public bool Disabled = false;
     }
 }

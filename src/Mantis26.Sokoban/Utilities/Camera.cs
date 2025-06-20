@@ -13,11 +13,26 @@ namespace Mantis26.Sokoban.Utilities
         private GraphicsDevice _graphics = graphics;
 
         public Vector2 Position { get; set; }
-        public float Zoom { get; set; } = 32;
+        public float Zoom { get; set; } = 64;
 
-        public Matrix World => Matrix.CreateTranslation(-this.Position.X, -this.Position.Y, 0);
+        public Vector2 SnappedPosition
+        {
+            get
+            {
+                return new Vector2(
+                    (float)Math.Round(this.Position.X * this.Zoom) / this.Zoom,
+                    (float)Math.Round(this.Position.Y * this.Zoom) / this.Zoom);
+            }
+        }
+
+        public Matrix World => Matrix.CreateTranslation(-this.SnappedPosition.X, -this.SnappedPosition.Y, 0);
         public Matrix View => Matrix.CreateScale(this.Zoom, this.Zoom, 1);
         public Matrix Projection => Matrix.CreateTranslation(this._graphics.Viewport.Bounds.Width / 2f, this._graphics.Viewport.Bounds.Height / 2f, 0f);
+
+        public Matrix WorldViewProjection =>
+            this.World *
+            this.View *
+            this.Projection;
 
         public virtual Vector2 ToScreen(Vector2 world)
         {

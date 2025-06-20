@@ -1,0 +1,14 @@
+[
+  {
+    "id": "Main Room",
+    "responses": [
+      "Go Back"
+    ]
+  },
+  {
+    "id": "Go Back",
+    "responses": [
+      "Main Room"
+    ]
+  }
+]

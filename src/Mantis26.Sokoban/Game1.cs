@@ -13,6 +13,8 @@ using Mantis26.Sokoban.Systems;
 using Mantis26.Sokoban.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mantis.Core.Serialization.Extensions;
+using Mantis.Core.Files.Extensions;
 
 namespace Mantis26.Sokoban
 {
@@ -42,8 +44,8 @@ namespace Mantis26.Sokoban
                 e.GraphicsDeviceInformation.PresentationParameters.MultiSampleCount = 8;
                 e.GraphicsDeviceInformation.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
                 e.GraphicsDeviceInformation.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
-                e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 1000;
-                e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 1920;
+                e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = 720;
+                e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = 960;
             };
             this._graphics.SynchronizeWithVerticalRetrace = false;
             this._graphics.GraphicsProfile = GraphicsProfile.HiDef;
@@ -51,6 +53,8 @@ namespace Mantis26.Sokoban
             this._mantis = new MantisEngine(builder =>
             {
                 builder.RegisterCoreServices()
+                    .RegisterJsonServices()
+                    .RegisterFileServices()
                     .RegisterMonoGameServices(this.Content, this._graphics)
                     .RegisterECSServices();
 
@@ -65,10 +69,14 @@ namespace Mantis26.Sokoban
                 builder.RegisterType<Camera>().InstancePerLifetimeScope();
                 builder.RegisterType<PushService>().InstancePerLifetimeScope();
 
+                builder.RegisterType<DeadlyPushScenarioService>().As<IPushScenarioService>().InstancePerLifetimeScope();
+                builder.RegisterType<IceFirePushScenarioService>().As<IPushScenarioService>().InstancePerLifetimeScope();
+
                 builder.RegisterSceneSystem<EngineSystem>()
                     .RegisterSceneSystem<WorldSystem>()
                     .RegisterSceneSystem<ControllableSystem>()
                     .RegisterSceneSystem<Position2DSystem>()
+                    .RegisterSceneSystem<AnimationSystem>()
                     .RegisterSceneSystem<SpriteSystem>();
             });
 
