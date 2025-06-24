@@ -78,6 +78,8 @@ namespace TextAdventure.Scenes
             //    new AnimationFrameContext("6", 1000)
             //]);
 
+            var text =
+
             var text = entityFactory.BuildEntity<TextElementDescriptor>(0, ExclusiveGroups.TextGroup);
 
             text.Init(new Transform2D(10, 10));
