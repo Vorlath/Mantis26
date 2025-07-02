@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Svelto.ECS;
 using Svelto.ECS.Schedulers;
 
-namespace TextAdventure.Scenes
+namespace VampireSurvivors.Scenes
 {
     public static class ExclusiveGroups
     {
