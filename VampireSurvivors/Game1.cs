@@ -133,7 +133,7 @@ namespace VampireSurvivors
         {
             base.Draw(gameTime);
 
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(Color.Gray);
 
             this._mantis.Draw(gameTime);
         }
