@@ -15,7 +15,9 @@ namespace VampireSurvivors.Descriptors
             new ComponentBuilder<Collidable>(new Collidable()),
             new ComponentBuilder<Controllable>(new Controllable()),
             new ComponentBuilder<Input>(new Input()),
-            //new ComponentBuilder<Direction>(new Direction()),
+            new ComponentBuilder<Direction>(new Direction()),
+            new ComponentBuilder<Speed>(new Speed()),
+            //new ComponentBuilder<Player>(new Player()),
             //new ComponentBuilder<PlayerState>(new PlayerState()),
             //new ComponentBuilder<Jump>(new Jump()),
         ];

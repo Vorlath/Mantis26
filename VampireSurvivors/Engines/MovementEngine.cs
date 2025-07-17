@@ -4,6 +4,9 @@ using Mantis.Engine.Common.Systems;
 using Microsoft.Xna.Framework;
 using Svelto.ECS;
 
+//using System.Numerics;
+using VampireSurvivors.Components;
+
 namespace VampireSurvivors.Engines
 {
     public class MovementEngine() : IQueryingEntitiesEngine, IUpdateSystem, ISceneSystem
@@ -19,54 +22,66 @@ namespace VampireSurvivors.Engines
         [SequenceGroup<UpdateSequenceGroupEnum>(UpdateSequenceGroupEnum.Update)]
         public void Update(GameTime gameTime)
         {
-            //var groups = this.entitiesDB.FindGroups<Velocity, Transform2D, PlayerState, Gravity>();
-            //foreach (var ((velocities, positions, playerStates, gravities, count), group) in this.entitiesDB.QueryEntities<Velocity, Transform2D, PlayerState, Gravity>(groups))
-            //{
-            //    var (animations, collisions, _) = this.entitiesDB.QueryEntities<Animated, Collidable>(group);
-            //    for (int i = 0; i < count; i++)
-            //    {
-            //        ref Velocity velocity = ref velocities[i];
-            //        ref Transform2D position = ref positions[i];
-            //        ref PlayerState playerState = ref playerStates[i];
-            //        ref Gravity gravity = ref gravities[i];
-            //        ref Animated animation = ref animations[i];
-            //        ref Collidable collision = ref collisions[i];
+            var playerGroups = this.entitiesDB.FindGroups<Velocity, Transform2D, Controllable>();
+            foreach (var ((velocities, positions, controllables, count), group) in this.entitiesDB.QueryEntities<Velocity, Transform2D, Controllable>(playerGroups))
+            {
+                var (animations, collisions, _) = this.entitiesDB.QueryEntities<Animated, Collidable>(group);
+                for (int i = 0; i < count; i++)
+                {
+                    ref Velocity velocity = ref velocities[i];
+                    ref Transform2D position = ref positions[i];
 
+                    ref Animated animation = ref animations[i];
+                    ref Collidable collision = ref collisions[i];
 
-            //        Update(ref playerState, ref velocity, ref position, ref gravity, ref animation, ref collision, gameTime);
-            //    }
-            //}
+                    UpdatePlayer(ref velocity, ref position, ref animation, ref collision, gameTime);
+                    var enemyGroups = this.entitiesDB.FindGroups<Velocity, Transform2D, Enemy, Speed>();
+                    foreach (var ((enemyVelocities, enemyPositions, enemies, enemyCount), enemyGroup) in this.entitiesDB.QueryEntities<Velocity, Transform2D, Enemy>(enemyGroups))
+                    {
+                        var (enemySpeeds, enemyCollisions, _) = this.entitiesDB.QueryEntities<Speed, Collidable>(enemyGroup);
+                        for (int j = 0; j < enemyCount; j++)
+                        {
+                            ref Velocity enemyVelocity = ref enemyVelocities[j];
+                            ref Transform2D enemyPosition = ref enemyPositions[j];
+                            ref Speed enemySpeed = ref enemySpeeds[j];
+                            ref Collidable enemyCollision = ref enemyCollisions[j];
+
+                            UpdateEnemy(ref enemyVelocity, ref enemyPosition, ref enemySpeed, ref position, gameTime);
+                        }
+                    }
+                }
+            }
         }
 
-        //private static void Update(ref PlayerState playerState, ref Velocity velocity, ref Transform2D position, ref Gravity gravity, ref Animated animation, ref Collidable collision, GameTime gameTime)
-        //{
-        //    // set velocity to 0
+        private static void UpdatePlayer(ref Velocity velocity, ref Transform2D position, ref Animated animation, ref Collidable collision, GameTime gameTime)
+        {
+            position.Position += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+        }
 
-        //    if (playerState.isGrounded)
-        //    {
-        //        velocity.Value.Y = 0;
-        //        velocity.Value.X = 0;
-        //    }
+        private static void UpdateEnemy(ref Velocity enemyVelocity, ref Transform2D enemyPosition, ref Speed enemySpeed, ref Transform2D playerPosition, GameTime gameTime)
+        {
+            Vector2 chaseDirection = new Vector2(playerPosition.Position.X - enemyPosition.Position.X, playerPosition.Position.Y - enemyPosition.Position.Y);
+            float normalized = MathF.Sqrt((chaseDirection.X * chaseDirection.X + chaseDirection.Y * chaseDirection.Y));
+            if (chaseDirection.X != 0 && normalized != 0)
+            {
+                chaseDirection.X /= normalized;
+            }
+            else
+            {
+                chaseDirection.X = 0;
+            }
+            if (chaseDirection.Y != 0 && normalized != 0)
+            {
+                chaseDirection.Y /= normalized;
+            }
+            else
+            {
+                chaseDirection.Y = 0;
+            }
+            enemyVelocity.Value = chaseDirection * enemySpeed.Value;
 
-
-        //    //This is temporary
-        //    if (position.Position.Y > 925 && !playerState.isGrounded)
-        //    {
-        //        playerState.isGrounded = true;
-        //        position.Position.Y = 924.0f;
-        //    }
-        //    else
-        //    {
-        //        if (!playerState.isGrounded)
-        //        {
-        //            velocity.Value.Y += (gravity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
-        //        }
-        //    }
-        //    position.Position += (velocity.Value * (float)gameTime.ElapsedGameTime.TotalSeconds);
-
-        //    // new position based on the entity's updated position, while keeping the box's size
-        //    //collision.CollisionBox = RectangleHelper.CreateCollisionBoundsF(position.Position, collision.Offset, collision.CollisionBox.Size);
-        //    collision.CollisionBox = RectangleHelper.CreateBoundsF(position.Position, collision.CollisionBox.Size);
-        //}
+            enemyPosition.Position += (enemyVelocity.Value * (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            //Debug.WriteLine(enemyPosition.Position.Y);
+        }
     }
 }
