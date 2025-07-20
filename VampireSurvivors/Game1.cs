@@ -62,6 +62,7 @@ namespace VampireSurvivors
 
                 builder.RegisterType<GameScene>().AsSelf().InstancePerLifetimeScope();
                 builder.RegisterSceneSystem<AnimationSystem>();
+                builder.RegisterSceneSystem<EnemySpawnSystem>();
                 //builder.RegisterSceneSystem<TextureEngine>();
                 builder.RegisterSceneSystem<MovementEngine>();
                 //builder.RegisterSceneSystem<CollisionEngine>();

@@ -67,24 +67,13 @@ namespace VampireSurvivors.Scenes
             var WormSpriteSheet = new SpriteSheet(_WormTexture, [
                 new SpriteData("9", new Rectangle(0, 0, 64, 80))
                 ]);
-            //var _MNKYTexture = content.Load<Texture2D>("MNKY");
-            //var MNKYSpriteSheet = new SpriteSheet(_MNKYTexture, [
-            //    new SpriteData("1", new Rectangle(0, 0, 32, 32)),
-            //    new SpriteData("2", new Rectangle(32, 0, 32, 32)),
-            //    new SpriteData("3", new Rectangle(0, 32, 32, 32)),
-            //    new SpriteData("4", new Rectangle(32, 32, 32, 32)),
-            //    new SpriteData("5", new Rectangle(0, 64, 32, 32)),
-            //    new SpriteData("6", new Rectangle(32, 64, 32, 32))
-            //    ]);
 
-            AnimationType BirdIdleRight = BirdSpriteSheet.CreateAnimationType([
+            AnimationType BirdIdleRight = BirdSpriteSheet.CreateAnimationType(AnimationTypes.BirdIdleRight, [
                 new AnimationFrameContext("1", 1000)
             ]);
 
-
-
             // Walk right
-            BirdSpriteSheet.CreateAnimationType([
+            BirdSpriteSheet.CreateAnimationType(AnimationTypes.BirdWalkRight, [
                 new AnimationFrameContext("2", 200),
                 new AnimationFrameContext("3", 200),
                 new AnimationFrameContext("4", 200),
@@ -92,19 +81,19 @@ namespace VampireSurvivors.Scenes
             ]);
 
             // Idle left
-            BirdSpriteSheet.CreateAnimationType([
+            BirdSpriteSheet.CreateAnimationType(AnimationTypes.BirdIdleLeft, [
                 new AnimationFrameContext("5", 1000)
             ]);
 
             // Walk left
-            BirdSpriteSheet.CreateAnimationType([
+            BirdSpriteSheet.CreateAnimationType(AnimationTypes.BirdWalkLeft, [
                 new AnimationFrameContext("6", 200),
                 new AnimationFrameContext("7", 200),
                 new AnimationFrameContext("8", 200),
                 new AnimationFrameContext("5", 200),
             ]);
 
-            AnimationType WormRight = WormSpriteSheet.CreateAnimationType([
+            AnimationType WormRight = WormSpriteSheet.CreateAnimationType(AnimationTypes.WormRight, [
               new AnimationFrameContext("9", 1000)
           ]);
 
@@ -115,36 +104,37 @@ namespace VampireSurvivors.Scenes
             Bird.Init(new Transform2D(500, 500, 0));
             Bird.Init(new Velocity(75, 0));
             Bird.Init(new Size(64, 80));
-            Bird.Init(new Animated(BirdIdleRight));
+            Bird.Init(new Animated(AnimationTypes.BirdIdleRight));
             Bird.Init(new Collidable(new RectangleF(0, 0, 32, 64), new Vector2(16, 0)));
             Bird.Init(new Speed(0.2f));
             Bird.Init(new Controllable());
-            //Bird.Init(new Player());
 
-            var Worm = entityFactory.BuildEntity<WormDescriptor>(0, ExclusiveGroups.EnemyGroup);
-            Worm.Init(new Transform2D(500, 200, 0));
-            Worm.Init(new Velocity(0, 0));
-            Worm.Init(new Size(64, 80));
-            Worm.Init(new Animated(WormRight));
-            Worm.Init(new Collidable(new RectangleF(0, 0, 32, 64), new Vector2(16, 0)));
-            Worm.Init(new Speed(0.1f));
-            Worm.Init(new Enemy());
+            //EnemySpawnSystem enemySpawnSystem = new EnemySpawnSystem(content, entityFactory, 1);
 
-            Random rng = new Random();
+            //var Worm = entityFactory.BuildEntity<WormDescriptor>(0, ExclusiveGroups.EnemyGroup);
+            //Worm.Init(new Transform2D(500, 200, 0));
+            //Worm.Init(new Velocity(0, 0));
+            //Worm.Init(new Size(64, 80));
+            //Worm.Init(new Animated(AnimationTypes.WormRight));
+            //Worm.Init(new Collidable(new RectangleF(0, 0, 32, 64), new Vector2(16, 0)));
+            //Worm.Init(new Speed(0.1f));
+            //Worm.Init(new Enemy());
 
-            uint num = 2;
-            for (int i = 2; i < 100; i++)
-            {
-                Worm = entityFactory.BuildEntity<WormDescriptor>(num, ExclusiveGroups.EnemyGroup);
-                Worm.Init(new Transform2D(rng.Next(1000), rng.Next(1000), 0));
-                Worm.Init(new Velocity(0, 0));
-                Worm.Init(new Size(64, 80));
-                Worm.Init(new Animated(WormRight));
-                Worm.Init(new Collidable(new RectangleF(0, 0, 32, 64), new Vector2(16, 0)));
-                Worm.Init(new Speed(0.1f));
-                Worm.Init(new Enemy());
-                num++;
-            }
+            //Random rng = new Random();
+
+            //uint num = 2;
+            //for (int i = 2; i < 100; i++)
+            //{
+            //    Worm = entityFactory.BuildEntity<WormDescriptor>(num, ExclusiveGroups.EnemyGroup);
+            //    Worm.Init(new Transform2D(rng.Next(1000), rng.Next(1000), 0));
+            //    Worm.Init(new Velocity(0, 0));
+            //    Worm.Init(new Size(64, 80));
+            //    Worm.Init(new Animated(WormRight));
+            //    Worm.Init(new Collidable(new RectangleF(0, 0, 32, 64), new Vector2(16, 0)));
+            //    Worm.Init(new Speed(0.1f));
+            //    Worm.Init(new Enemy());
+            //    num++;
+            //}
 
             /////////////////////////////////////////////////////
             /// Block

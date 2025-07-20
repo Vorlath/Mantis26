@@ -1,4 +1,5 @@
-﻿using Mantis.Core.Common.Attributes;
+﻿using Mantis.Core.Common;
+using Mantis.Core.Common.Attributes;
 using Mantis.Core.MonoGame.Common;
 using Mantis.Engine.Common.Enums;
 using Mantis.Engine.Common.Systems;
@@ -49,16 +50,16 @@ namespace VampireSurvivors.Engines
                     {
                         if (direction.isRight || direction.isDown || direction.isUp)
                         {
-                            if (animated.Animation.TypeId != 1)
+                            if (animated.Animation.TypeId != Id<AnimationType>.GetByName("BirdWalkRight"))
                             {
-                                animated.Animation.Type = AnimationType.GetAnimationTypeById(1);
+                                animated.Animation.Type = AnimationType.GetAnimationTypeById(Id<AnimationType>.GetByName("BirdWalkRight"));
                             }
                         }
                         else
                         {
-                            if (animated.Animation.TypeId != 0)
+                            if (animated.Animation.TypeId != Id<AnimationType>.GetByName("BirdIdleRight"))
                             {
-                                animated.Animation.Type = AnimationType.GetAnimationTypeById(0);
+                                animated.Animation.Type = AnimationType.GetAnimationTypeById(Id<AnimationType>.GetByName("BirdIdleRight"));
                             }
                         }
                     }
@@ -67,16 +68,16 @@ namespace VampireSurvivors.Engines
 
                         if (direction.isLeft || direction.isDown || direction.isUp)
                         {
-                            if (animated.Animation.TypeId != 3)
+                            if (animated.Animation.TypeId != Id<AnimationType>.GetByName("BirdWalkLeft"))
                             {
-                                animated.Animation.Type = AnimationType.GetAnimationTypeById(3);
+                                animated.Animation.Type = AnimationType.GetAnimationTypeById(Id<AnimationType>.GetByName("BirdWalkLeft"));
                             }
                         }
                         else
                         {
-                            if (animated.Animation.TypeId != 2)
+                            if (animated.Animation.TypeId != Id<AnimationType>.GetByName("BirdIdleLeft"))
                             {
-                                animated.Animation.Type = AnimationType.GetAnimationTypeById(2);
+                                animated.Animation.Type = AnimationType.GetAnimationTypeById(Id<AnimationType>.GetByName("BirdIdleLeft"));
                             }
                         }
 
